@@ -16,3 +16,4 @@ app.use('/admin', adminRoute);
 app.listen(process.env.PORT || port, function(){
     console.log("Server has started.");
 });
+
