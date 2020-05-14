@@ -1,25 +1,34 @@
 <%- include('includes/head.ejs') %>
-    <!--link rel="stylesheet" href="/css/product.css"-->
+<!--link rel="stylesheet" href="/css/product.css"-->
 </head>
 
 <body>
     <%- include('includes/navigation.ejs') %>
     <section class="section">
-        
+        <div class="tile is-ancestor">
+            <div class="tile is-vertical is-parent">
+                <% if(items.length > 0) { %>
+                <div class="tile is-child notification is-info box">
+                    <p class="subtitle">Click on wish to delete it</p>
+                </div>
+                <% for(let item of items) { %>
+                <div class="field">
+                    <div class="control">
+                        <a href="admin/delete/<%= item.id %>">
+                            <div class="tile is-child notification is-primary box">
+                                <p class="title is-size-4"><%= item.name %></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <% } %>
+                <% } else { %>
+                <div class="tile is-child notification is-warning box">
+                    <p class="subtitle">No wishes.. :(</p>
+                </div>
+                <% } %>
+            </div>
+        </div>
 
-        <ul>
-        <% if(items.length > 0) { %>
-        
-            
-            <% for(let item of items) { %>
-            
-            <li><%= item.itemName %></li>
-
-            <% } %>
-        </ul>
-        
-        <% } else { %>
-            <h1>No wishes.. :(</h1>
-        <% } %>
     </section>
-<%- include('includes/end.ejs') %>
+    <%- include('includes/end.ejs') %>

@@ -1,11 +1,17 @@
-const Item = require('../models/item');
+const mongoose = require('mongoose');
+const Item = mongoose.model('Item');
 
 exports.getIndex = (req, res) => {
-    Item.getItems((items)=>{
-        res.render('index', {
-        pageTitle: 'Wish List',
-        items: items,
-        path: '/'
-        });
+    Item.find((error, items) =>{
+        if(!error){
+            res.render('index',
+            {
+                items: items,
+                pageTitle: 'Wish List',
+                path: '/'
+            });
+        } else {
+            console.log("db error");
+        }
     });
 };

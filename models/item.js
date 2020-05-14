@@ -1,37 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+const mongoose = require('mongoose');
 
-const dataPath = path.join(path.dirname(process.mainModule.filename),
-    'data',
-    'item.json'        
-    );
+const Schema = mongoose.Schema;
 
-const getItemsFromFile = (callBack) => {
-    fs.readFile(dataPath, (error, fileContent) => {
-        if(error){
-            return callBack([]);
-        }
-        callBack(JSON.parse(fileContent));
-    });
-}
-
-//Model
-module.exports = class Item {
-    constructor(itemName){
-        this.itemName = itemName;
+const taskSchema = new Schema({
+    name: {
+        type: String
     }
+});
 
-    saveItem() {
-        getItemsFromFile(items => {
-            items.push(this);
-            fs.writeFile(dataPath, JSON.stringify(items), (error) => {
-                console.log(error);
-            });
-        });
-       
-    }
-
-    static getItems(callBack){
-        getItemsFromFile(callBack);
-    }
-}
+mongoose.model('Item', taskSchema);
